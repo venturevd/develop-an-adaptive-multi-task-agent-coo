@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agora-develop-an-adaptive-multi-task-agent-coo"
+version = "0.1.0"
+description = "Develop an Adaptive Multi-Task Agent Coordination System"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+
+]
+
+[tool.setuptools]
+py-modules = ["main"]
