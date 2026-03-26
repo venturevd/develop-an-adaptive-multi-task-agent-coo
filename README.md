@@ -1,80 +1,78 @@
 # Adaptive Multi-Task Agent Coordinator
 
-A lightweight CLI tool that extends the `AgentBroker` with dynamic, performance-based task adaptation. It matches agents to tasks not just by capability fit, but by historical success rates, enabling real-time optimization of assignments as the system learns.
+A self-contained CLI tool that matches agents with tasks using dynamic, performance-based scoring. The coordinator learns from task completion outcomes (success/failure) to prioritize better agent-task assignments over time. All data persists in `broker_state.json`.
 
 ## Features
+- Register agents with capabilities
+- Submit tasks with requirements
+- Get sorted list of tasks for an agent based on historical performance
+- Get sorted list of agents for a task based on success rates
+- Record task completion (success or failure) to improve future matching
+- No external dependencies beyond Python standard library
 
-- **Capability-based matching**: Core matching from `agent_representation_broker`
-- **Performance tracking**: Records task completion outcomes (success/failure)
-- **Adaptive scoring**: Prioritizes agents with proven success in required capabilities
-- **CLI interface**: Simple commands for registration, submission, and querying
+## Matching Algorithm
 
-## Prerequisites
+The score for an agent on a requirement is:
 
-- Python 3.8+
-- `agent_representation_broker` package installed (e.g., `pip install -e ../agent_representation_broker`)
+- Base score: 1.0
+- Plus the agent's success rate for that capability (successes / total attempts), if history exists
+
+Agents are sorted by descending score, so those with proven success on required capabilities appear first.
 
 ## Usage
 
 ```bash
 python3 main.py --help
+python3 main.py <command> [options]
 ```
 
 ### Commands
 
-- `register <agent_id> <capabilities...>` – Register a new agent with space-separated capabilities.
-- `submit <task_id> <requirements...>` – Submit a task with space-separated requirements.
-- `tasks <agent_id>` – List task IDs that match the agent (scored by performance).
-- `agents <task_id>` – List agent IDs that match the task (scored by performance).
-- `complete <task_id> <agent_id> [--fail]` – Record a task completion outcome; defaults to success, use `--fail` to record failure.
-- `status` – Print full broker state (agents, tasks, performance data) as JSON.
+| Command | Description |
+|---------|-------------|
+| `register <agent_id> <capabilities...>` | Register a new agent with capabilities |
+| `submit <task_id> <requirements...>` | Submit a new task with requirements |
+| `tasks <agent_id>` | List tasks matching agent's capabilities, sorted by performance score |
+| `agents <task_id>` | List agents matching task's requirements, sorted by performance score |
+| `complete <task_id> <agent_id> [--fail]` | Record task completion; success by default, use `--fail` for failure |
+| `status` | Show full state as JSON |
 
-## Example Workflow
+## Examples
 
 ```bash
-# Register two agents
-python3 main.py register agent1 python debugging testing
-python3 main.py register agent2 javascript frontend design
+# Register agents with capabilities
+python3 main.py register alice python testing
+python3 main.py register bob javascript
 
 # Submit tasks
-python3 main.py submit task1 python debugging
-python3 main.py submit task2 javascript design
+python3 main.py submit job1 python testing
+python3 main.py submit job2 javascript
 
-# See initial matches (equal scores)
-python3 main.py tasks agent1
-# Output: task1
+# Find tasks for alice (sorted by match quality)
+python3 main.py tasks alice
 
-python3 main.py agents task1
-# Output: agent1
+# Find agents for job1 (sorted by match quality)
+python3 main.py agents job1
 
-# Simulate task 1 completed successfully by agent1
-python3 main.py complete task1 agent1
+# Record successful completion
+python3 main.py complete job1 alice
 
-# Now agent1 will have a higher score for tasks requiring 'python' or 'debugging'
-# Future matches prioritize agent1 for similar tasks over other agents with no history.
-```
+# Record a failure instead
+python3 main.py complete job1 alice --fail
 
-## Verification
-
-To verify the tool is working correctly:
-
-```bash
-# Show help
-python3 main.py --help
-
-# Quick test
-python3 main.py register tester python
-python3 main.py submit test_task python
-python3 main.py tasks tester
+# View full broker state
 python3 main.py status
 ```
 
-## How Adaptability Works
+## State Persistence
 
-The `AdaptiveBroker` maintains a performance matrix `p[agent_id][capability] = [success_count, failure_count]`. When computing matches, the base score of 1.0 is augmented by the success rate for each required capability: `score += success_count / (success_count + failure_count)`. Agents with a history of successful completions in a capability receive a boost, while those with failures do not. This creates a self-reinforcing loop: effective agents get more tasks, generating more data to refine assignments.
+All registrations, submissions, and performance history are saved automatically to `broker_state.json`. The tool loads this file on startup, enabling continuous operation across multiple runs.
 
-The system updates in real-time: every call to `complete()` immediately affects subsequent match queries.
+## Verification
 
-## Output
-
-Commands return plain text lines (IDs) or JSON for `status`. This makes the tool script-friendly.
+```bash
+python3 main.py --help
+python3 main.py register test_agent python
+python3 main.py submit test_task python
+python3 main.py status
+```

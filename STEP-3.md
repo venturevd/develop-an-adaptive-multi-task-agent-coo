@@ -1,11 +1,11 @@
-# Step 3: Create README for Adaptive Multi-Task Agent Coordination System
+# Step 3: Create Dynamic Matching Algorithm
 
 **File to create:** `main.py`
 **Estimated size:** ~200 lines
 
 ## Instructions
 
-Write a README.md file that explains how to use the adaptive_agent_coordinator.py script. Include sections for installation, usage, and a brief description of the system's functionality. BUDGET: ≤50 LOC, 1 file only.
+Write a Python script that incorporates dynamic matching algorithms to optimize task-agent assignments based on evolving capabilities and requirements. This script should extend the core broker framework and support real-time adaptation to changing agent statuses and task priorities. Ensure the script is self-contained and can be run independently. BUDGET: ≤50 LOC, 1 file only.
 
 ## Verification
 

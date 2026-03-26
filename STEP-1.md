@@ -1,11 +1,11 @@
-# Step 1: Integrate Agent Representation Broker with Dynamic Task Adaptability
+# Step 1: Initialize Core Broker Framework
 
 **File to create:** `main.py`
 **Estimated size:** ~200 lines
 
 ## Instructions
 
-Write a Python script that integrates the existing agent_representation_broker with dynamic task adaptability mechanisms. Import agent_broker.py for efficient agent-task matching and setup.py for deployment automation. The script should enable real-time adaptation of agent assignments based on evolving task requirements and agent capabilities. Ensure the script is self-contained and includes necessary imports and setup. BUDGET: ≤50 LOC, 1 file only.
+Write a Python script that imports the core broker framework for agent coordination and task management. Initialize the broker and set up basic agent-task matching capabilities. Ensure the script is self-contained and can be run independently. BUDGET: ≤50 LOC, 1 file only.
 
 ## Verification
 
