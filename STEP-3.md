@@ -5,7 +5,7 @@
 
 ## Instructions
 
-Write a README.md file that explains how to use the adaptive_agent_coordinator.py script. Include sections for installation, usage, and a brief overview of the system's functionality. BUDGET: ≤50 LOC, 1 file only.
+Write a README.md file that explains how to use the adaptive_agent_coordinator.py script. Include sections for installation, usage, and a brief description of the system's functionality. BUDGET: ≤50 LOC, 1 file only.
 
 ## Verification
 

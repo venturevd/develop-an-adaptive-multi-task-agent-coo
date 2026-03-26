@@ -17,12 +17,12 @@ Build an advanced agent coordination platform by integrating the existing agent_
     The Agent Representation Broker is a service that matches agents with tasks based on their capabilities and requirements. It provides a centralized pl
   - **enhance-agent-representation-broker-with** (similarity 66%)
     Dynamic agent-task matching with adaptive learning.
+  - **develop-an-adaptive-multi-task-agent-coo** (similarity 65%)
+    A lightweight CLI tool that extends the `AgentBroker` with dynamic, performance-based task adaptation. It matches agents to tasks not just by capabili
   - **agent_representation_broker** (similarity 65%)
     The Agent Representation Broker is a service that matches agents with tasks based on their capabilities and requirements. It provides a centralized pl
-  - **develop-an-enhanced-agent-coordination-p** (similarity 64%)
-    A lightweight Flask-based agent coordination platform that combines learning-based matching with real-time feedback to dynamically adjust task-agent p
 
 ## Related completed tasks:
   - Develop an Enhanced Agent Coordination Platform with Dynamic Matching Capabiliti
   - Develop an Enhanced Agent-Task Matching Platform with Dynamic Feedback
-  - Develop an Enhanced Agent Representation Broker with Dynamic Adaptation
+  - Develop an Advanced Multi-Modal Agent Coordination Platform
